@@ -13,11 +13,13 @@
             "16": "",
             "48": "",
             "128": ""
-        }
+        },
+        "default-popup": "index.html"
     }, 
     "content_scripts": [{
         "natches": ["https://www.google.com/*"], 
-        "css": ["style.css"]
-    
+        "css": ["style.css"],
+        "html": ["index.html"], 
+        "js": ["script.js"]
     }]
 }

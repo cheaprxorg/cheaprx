@@ -1,0 +1,39 @@
+
+body{
+    font-family:'EB Garamond';
+}
+
+input[readonly]{
+    background-color: white !important;
+    padding-top: 1em;
+    padding-bottom: 1em; 
+}
+.form-control{
+    border-radius: 16px;
+}
+#saved-total{
+    background-color:  #4767F2 !important;
+    color: #F8F8FD;
+}
+
+#main-card{
+    display: inline-block; 
+    top: 20em; 
+    right: 15em;
+    background-color: #F8F8FD;
+    padding: 1em;
+    border-radius: 20px;
+}
+#rectangle {
+    position: absolute;
+    top: 8em; 
+    right: 0;
+    width: 100px; 
+    height: 100px;
+    background: #4767F2;
+    border-top-left-radius: 60px;
+    border-bottom-left-radius: 60px;
+}
+
+
+
