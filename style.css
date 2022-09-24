@@ -19,7 +19,7 @@ input[readonly]{
 #main-card{
     display: inline-block; 
     top: 20em; 
-    right: 15em;
+    right: 2em;
     background-color: #F8F8FD;
     padding: 1em;
     border-radius: 20px;
