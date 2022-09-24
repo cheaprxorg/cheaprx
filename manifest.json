@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2, 
+    "name": "cheap-perscriptions-finder", 
+    "desciption": "Find the cheapest perscriptions on the internet",
+    "version": "1.0",
+    "icons": {
+        "16": "", 
+        "48": "",
+        "128": ""
+    }, 
+    "page_action": {
+        "default_icon": {
+            "16": "",
+            "48": "",
+            "128": ""
+        }
+    }, 
+    "content_scripts": [{
+        "natches": ["https://www.google.com/*"], 
+        "css": ["style.css"]
+    
+    }]
+}
