@@ -1,35 +1,30 @@
-import 'bootstrap';
-
 let costplus = {
     company: "Cost Plus Drugs",
     url: "https://costplusdrugs.com/medications/imatinib-100mg-tablet/",
     //url: "https://www.rxsaver.com/drugs/imatinib-mesylate/coupons"
 };
 
-
-
-
 const insertHTML = (medicationData) => {
     // part 1
-    let body = document.querySelector('body');
+    let body = document.createElement('div');
     let i = document.createElement('div');
     let logo = document.createElement('img'); 
-    let logoImg = img(logo);
-    let popIcon = icon(i);
-    popIcon.append(logoImg);
-    body.append(popIcon);
+    img(logo);
+    icon(i);
+    i.appendChild(logo);
+    body.appendChild(i);
     // part 2
     let mainCard = document.createElement('div');
     let drugName = document.createElement('h1');
     let exitCard = document.createElement('i');
-    let card = main(mainCard);
+    main(mainCard);
     drugName.innerHtml = "Drug name here";
     drugName.style.display = 'inline';
-    card.append(drugName);
-    let x = exit(exitCard) ;
-    mainCard.append(drugName);
-    mainCard.append(x);
-    body.append(mainCard);
+    mainCard.appendChild(drugName);
+    exit(exitCard) ;
+    mainCard.appendChild(drugName);
+    mainCard.appendChild(exitCard);
+    body.appendChild(mainCard);
     // part 3
     let form = document.createElement('form');
     for (let i = 0; i < 3; i++) {
@@ -48,8 +43,8 @@ const insertHTML = (medicationData) => {
             input.style.paddingBottom = '1em';
             input.style.backgroundColor = '#FFFFFF !important';
         }
-    divFormGroup.apppend(input);
-    form.append(divFormGroup);
+        divFormGroup.appendChild(input);
+        form.appendChild(divFormGroup);
     }
     // part 4
     let formRow = document.createElement('div');
@@ -61,17 +56,18 @@ const insertHTML = (medicationData) => {
         formOption.value = "";
         formOption.setAttribute = 'disabled selected'
         formOption.innerHTML = options[i];
-        selectInput.append(formOption);
-        divOptionGroup.append(selectInput);
-        formRow.append(divOptionGroup);
+        selectInput.appendChild(formOption);
+        divOptionGroup.appendChild(selectInput);
+        formRow.appendChild(divOptionGroup);
     }
-    form.append(formRow);
+    form.appendChild(formRow);
     // part 5
     let credits =  document.createElement('div');
     credits.innerHtml = "Powered by ...";
-    form.append(credits);
-    body.append(form);
+    form.appendChild(credits);
+    body.appendChild(form);
 
+    document.body.appendChild(body);
 };
 const icon = (element) => {
     element.style.position = 'absolute';
@@ -92,7 +88,7 @@ const img = (element) => {
     element.style.borderRadius = '50%';
 }
 const main = (element) => {
-    element.style.display = none; 
+    element.style.display = 'none'; 
     element.style.top = '20em'; 
     element.style.right ='2em';
     element.style.backgroundColor = '#F8F8FD';
@@ -109,19 +105,24 @@ const exit = (element) => {
     element.style.top = '6%';
 }
 
-chrome.runtime.sendMessage(costplus, (response) => {
-    // Cost Plus Scraping
-    const data = response;
+const getPropsData = (htmlString) => {
     const startTag = '<script id="__NEXT_DATA__" type="application/json">';
     const endTag = '</script>';
 
-    const start = data.indexOf(startTag) + startTag.length;
-    const end = data.lastIndexOf(endTag);
+    const start = htmlString.indexOf(startTag) + startTag.length;
+    const end = htmlString.lastIndexOf(endTag);
 
-    const jsonString = data.substring(start, end);
-    const propsData = JSON.parse(jsonString);
+    const jsonString = htmlString.substring(start, end);
+    const propsData = JSON.parse(jsonString);   
 
-    const medicationData = propsData["props"]["pageProps"]["medicationDetails"];
+    return propsData;
+};
+
+chrome.runtime.sendMessage(costplus, (response) => {
+    // Cost Plus Scraping
+    const costPlusPropsData = getPropsData(response);
+    
+    const medicationData = costPlusPropsData["props"]["pageProps"]["medicationDetails"];
 
     insertHTML(medicationData);
  
