@@ -14,12 +14,12 @@
     "permissions": [
         "nativeMessaging"
     ],
-    "host_permissions": ["https://*/*"],
+    "host_permissions": ["https://costplusdrugs.com/medications/*"],
     "action": {
         "default_popup": "popup.html"
     },
     "content_scripts": [{
-        "matches": ["http://*/*", "https://*/*"], 
+        "matches": ["https://www.rxsaver.com/*"], 
         "js": ["scrape.js"]
     }]
 }
