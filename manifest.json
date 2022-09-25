@@ -7,20 +7,23 @@
     },
     "version": "1.0",
     "icons": {
-        "16": "images/RB.png", 
-        "48": "images/RB.png",
-        "128": "images/RB.png"
+        "16": "logo.png", 
+        "48": "logo.png",
+        "128": "logo.png"
     }, 
     "permissions": [
         "nativeMessaging"
     ],
-    "host_permissions": ["https://costplusdrugs.com/medications/*"],
+    "host_permissions": ["https://costplusdrugs.com/medications/*", "https://www.rxsaver.com/drugs/*"],
     "web_accessible_resources": [{
-        "resources": ["logo-removebg-preview.png"],
-        "matches": ["https://www.rxsaver.com/*"]
+        "resources": ["logo.png"],
+        "matches": ["https://*/*"]
     }],
     "content_scripts": [{
-        "matches": ["https://www.rxsaver.com/*"], 
-        "js": ["scrape.js"]
+        "matches": ["https://www.rxsaver.com/drugs/*"], 
+        "js": ["scrape-cost-plus.js"]
+    }, {
+        "matches": ["https://costplusdrugs.com/medications/*"], 
+        "js": ["scrape-rx-saver.js"]
     }]
 }

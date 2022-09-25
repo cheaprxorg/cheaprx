@@ -1,18 +1,62 @@
-const insertHTML = (medicationData) => {
+let dynamicStyles = null;
+
+function addAnimation(body) {
+  if (!dynamicStyles) {
+    dynamicStyles = document.createElement('style');
+    dynamicStyles.type = 'text/css';
+    document.head.appendChild(dynamicStyles);
+  }
+
+  dynamicStyles.sheet.insertRule(body, dynamicStyles.length);
+}
+
+addAnimation(`
+    @keyframes bounce { 
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-10%); }
+    }
+`);
+
+const insertHTML = (costPlusMedData, rxSaverMedData) => {
     // part 1
     let body = document.createElement('div');
     let i = document.createElement('div');
     let logo = document.createElement('img'); 
     img(logo);
+    logo.addEventListener("mouseover", () => {
+        logo.style.animation = 'bounce 0.3s';
+        logo.style.animationDirection = 'alternative';
+        logo.style.animationIterationCount = 'infinite';
+        logo.style.transition = 'ease-in-out';
+        logo.style.cursor = 'pointer';
+    })
     icon(i);
+    i.style.marginLeft = '1em';
     i.appendChild(logo);
     body.appendChild(i);
     // part 2
     let mainCard = document.createElement('div');
     let drugName = document.createElement('h1');
     let exitCard = document.createElement('i');
+    exitCard.addEventListener("mouseover", () => {
+        exitCard.style.cursor = 'pointer';
+    })
+    exitCard.addEventListener("click", () => {
+        mainCard.style.display = 'none';
+    })
+    logo.addEventListener("mouseover", () => {
+         logo.style.animation = '0.3s ease-in-out  infinite alternate bounce';
+
+    })
+    logo.addEventListener("click", () => {
+        mainCard.style.display = 'block';
+    })
     main(mainCard);
     drugName.style.display = 'inline';
+    drugName.style.width = '3em';
+    drugName.style.height = '3em';
+    drugName.style.fontSize = '2em';
+    drugName.style.marginRight = '20px';
     drugName.innerHTML = "Drug name here";
     mainCard.appendChild(drugName);
     exit(exitCard) ;
@@ -25,10 +69,14 @@ const insertHTML = (medicationData) => {
     for (let i = 0; i < 3; i++) {
         let divFormGroup = document.createElement('div');
         let input = document.createElement('input');
-        if(i == 2){
+        if(i == 3){
             input.value = 'total amount';
-            input.style.backgroundColor = '#4767F2 !important';
-            input.style.backgroundColor = '#F8F8FD';
+            input.style.borderRadius = '16px';
+            input.style.paddingTop = '1em'
+            input.style.paddingBottom = '1em';
+            input.style.background = '#4767F2 !important';
+            input.style.color = "#FFFFFF"
+            input.type = 'text';
         } else {
             input.setAttribute = 'readonly';
             input.value = 'whatever price comes in';
@@ -36,13 +84,18 @@ const insertHTML = (medicationData) => {
             input.style.borderRadius = '16px';
             input.style.paddingTop = '1em'
             input.style.paddingBottom = '1em';
-            input.style.backgroundColor = '#FFFFFF !important';
+            input.style.backgroundColor = '#FFFFFF';
         }
+        input.style.width = "100%";
+        input.style.marginTop = "1em";
         divFormGroup.appendChild(input);
         form.appendChild(divFormGroup);
     }
     // part 4
     let formRow = document.createElement('div');
+    formRow.style.display = 'flex';
+    formRow.style.justifyContent = 'space-between';
+    formRow.style.marginTop = '1em'
     for(let i = 0; i < 3; i++) {
         let options = ['Form', 'Count', 'Strength'];
         let divOptionGroup = document.createElement('div');
@@ -51,6 +104,7 @@ const insertHTML = (medicationData) => {
         formOption.value = "";
         formOption.setAttribute = 'disabled selected'
         formOption.innerHTML = options[i];
+        selectInput.style.padding = '5px';
         selectInput.appendChild(formOption);
         divOptionGroup.appendChild(selectInput);
         formRow.appendChild(divOptionGroup);
@@ -68,6 +122,7 @@ const insertHTML = (medicationData) => {
 
 const icon = (element) => {
     element.style.position = 'fixed';
+    element.style.zIndex = 99;
     element.style.top = '8em';
     element.style.right = 0;
     element.style.width = '100px';
@@ -77,7 +132,7 @@ const icon = (element) => {
     element.style.borderBottomLeftRadius = '60px';
 }
 const img = (element) => {
-    element.src = chrome.runtime.getURL('logo-removebg-preview.png');
+    element.src = chrome.runtime.getURL('logo.png');
     element.id = 'logo';
     element.style.marginTop = '9%';
     element.style.marginLeft = '10%'; 
@@ -119,40 +174,23 @@ const getPropsData = (htmlString) => {
 };
 
 
-// Scrape RX Saver Med Data
-const rxSaverPropsData = getPropsData(document.documentElement.outerHTML);
-const rxSaverMedData = rxSaverPropsData["props"]["initialState"];
-let medName = (rxSaverMedData["drugEducationInfo"]["brandName"]).toLowerCase();
+// Cost Plus Med Data
+const costPlusPropsData = getPropsData(document.documentElement.outerHTML);
+const costPlusMedData = costPlusPropsData["props"]["pageProps"]["medicationDetails"];
 
-const medTypes = rxSaverMedData["prescription"]["prescriptionNames"];
-let medForm;
-for (const medType of medTypes) {
-    if ((medType["Name"].toLowerCase()).includes(medName)) {
-        medForm = (medType["Forms"][0]["Form"]).toLowerCase();
-        break;
-    }
-}
+let medName = (costPlusMedData["brandName"]).toLowerCase();
 
-let medStrength = (rxSaverMedData["drugEducationInfo"]["dosage"]).toLowerCase();
-medStrength = medStrength.replace(/\s/g, '');
-
-let costPlusQuery = {
-    company: "Cost Plus Drugs",
-    baseUrl: "https://costplusdrugs.com/medications",
+let rxSaverQuery = {
+    company: "RxSaver",
+    baseUrl: "https://www.rxsaver.com/drugs",
     drugName: medName,
-    drugStrength: medStrength,
-    drugForm: medForm
     //url: "https://www.rxsaver.com/drugs/imatinib-mesylate/coupons"
 };
 
-chrome.runtime.sendMessage(costPlusQuery, (response) => {
-    // Cost Plus Scraping
-    const costPlusPropsData = getPropsData(response);
-    const medicationData = costPlusPropsData["props"]["pageProps"]["medicationDetails"];
+chrome.runtime.sendMessage(rxSaverQuery, (response) => {
+    // RxSaver Scraping
+    const rxSaverPropsData = getPropsData(response);
+    const rxSaverMedData = rxSaverPropsData["props"]["initialState"];
 
-    console.log(medicationData["pricePerUnit"]);
-    console.log(medicationData["priceOption1"]);
-    console.log(medicationData["priceOption2"]);
-    console.log(medicationData["priceOption3"]);
-    insertHTML(medicationData);
+    insertHTML(costPlusMedData, rxSaverMedData);
 });
