@@ -15,9 +15,6 @@
         "nativeMessaging"
     ],
     "host_permissions": ["https://costplusdrugs.com/medications/*"],
-    "action": {
-        "default_popup": "popup.html"
-    },
     "content_scripts": [{
         "matches": ["https://www.rxsaver.com/*"], 
         "js": ["scrape.js"]
