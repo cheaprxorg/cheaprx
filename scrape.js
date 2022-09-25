@@ -1,9 +1,3 @@
-let costplus = {
-    company: "Cost Plus Drugs",
-    url: "https://costplusdrugs.com/medications/imatinib-100mg-tablet/",
-    //url: "https://www.rxsaver.com/drugs/imatinib-mesylate/coupons"
-};
-
 const insertHTML = (medicationData) => {
     // part 1
     let body = document.createElement('div');
@@ -18,13 +12,14 @@ const insertHTML = (medicationData) => {
     let drugName = document.createElement('h1');
     let exitCard = document.createElement('i');
     main(mainCard);
-    drugName.innerHtml = "Drug name here";
     drugName.style.display = 'inline';
+    drugName.innerHTML = "Drug name here";
     mainCard.appendChild(drugName);
     exit(exitCard) ;
+    exitCard.innerHTML = "x"
     mainCard.appendChild(drugName);
     mainCard.appendChild(exitCard);
-    body.appendChild(mainCard);
+
     // part 3
     let form = document.createElement('form');
     for (let i = 0; i < 3; i++) {
@@ -33,7 +28,7 @@ const insertHTML = (medicationData) => {
         if(i == 2){
             input.value = 'total amount';
             input.style.backgroundColor = '#4767F2 !important';
-            input.style.color = '#F8F8FD';
+            input.style.backgroundColor = '#F8F8FD';
         } else {
             input.setAttribute = 'readonly';
             input.value = 'whatever price comes in';
@@ -65,12 +60,14 @@ const insertHTML = (medicationData) => {
     let credits =  document.createElement('div');
     credits.innerHtml = "Powered by ...";
     form.appendChild(credits);
-    body.appendChild(form);
+    mainCard.appendChild(form);
+    body.appendChild(mainCard);
 
     document.body.appendChild(body);
 };
+
 const icon = (element) => {
-    element.style.position = 'absolute';
+    element.style.position = 'fixed';
     element.style.top = '8em';
     element.style.right = 0;
     element.style.width = '100px';
@@ -80,7 +77,7 @@ const icon = (element) => {
     element.style.borderBottomLeftRadius = '60px';
 }
 const img = (element) => {
-    element.src = './images/logo-removebg-preview.png';
+    element.src = chrome.runtime.getURL('logo-removebg-preview.png');
     element.id = 'logo';
     element.style.marginTop = '9%';
     element.style.marginLeft = '10%'; 
@@ -88,7 +85,9 @@ const img = (element) => {
     element.style.borderRadius = '50%';
 }
 const main = (element) => {
-    element.style.display = 'none'; 
+    element.style.display = 'block';  // temp change
+    element.style.position = 'fixed';
+    element.id = 'main-card';
     element.style.top = '20em'; 
     element.style.right ='2em';
     element.style.backgroundColor = '#F8F8FD';
@@ -112,21 +111,48 @@ const getPropsData = (htmlString) => {
     const start = htmlString.indexOf(startTag) + startTag.length;
     const end = htmlString.lastIndexOf(endTag);
 
-    const jsonString = htmlString.substring(start, end);
+    let jsonString = htmlString.substring(start);
+    jsonString = jsonString.substring(0, jsonString.indexOf(endTag));
     const propsData = JSON.parse(jsonString);   
 
     return propsData;
 };
 
-chrome.runtime.sendMessage(costplus, (response) => {
+
+// Scrape RX Saver Med Data
+const rxSaverPropsData = getPropsData(document.documentElement.outerHTML);
+const rxSaverMedData = rxSaverPropsData["props"]["initialState"];
+let medName = (rxSaverMedData["drugEducationInfo"]["brandName"]).toLowerCase();
+
+const medTypes = rxSaverMedData["prescription"]["prescriptionNames"];
+let medForm;
+for (const medType of medTypes) {
+    if ((medType["Name"].toLowerCase()).includes(medName)) {
+        medForm = (medType["Forms"][0]["Form"]).toLowerCase();
+        break;
+    }
+}
+
+let medStrength = (rxSaverMedData["drugEducationInfo"]["dosage"]).toLowerCase();
+medStrength = medStrength.replace(/\s/g, '');
+
+let costPlusQuery = {
+    company: "Cost Plus Drugs",
+    baseUrl: "https://costplusdrugs.com/medications",
+    drugName: medName,
+    drugStrength: medStrength,
+    drugForm: medForm
+    //url: "https://www.rxsaver.com/drugs/imatinib-mesylate/coupons"
+};
+
+chrome.runtime.sendMessage(costPlusQuery, (response) => {
     // Cost Plus Scraping
     const costPlusPropsData = getPropsData(response);
-    
     const medicationData = costPlusPropsData["props"]["pageProps"]["medicationDetails"];
 
+    console.log(medicationData["pricePerUnit"]);
+    console.log(medicationData["priceOption1"]);
+    console.log(medicationData["priceOption2"]);
+    console.log(medicationData["priceOption3"]);
     insertHTML(medicationData);
- 
-    // RXsaver scraping
-    //const html = document.documentElement.outerHTML;
-    //console.log(html);
 });
