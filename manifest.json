@@ -1,25 +1,25 @@
 {
-    "manifest_version": 2, 
+    "manifest_version": 3, 
     "name": "cheap-perscriptions-finder", 
-    "desciption": "Find the cheapest perscriptions on the internet",
+    "description": "Find the cheapest perscriptions on the internet",
+    "background": {
+        "service_worker": "background.js"
+    },
     "version": "1.0",
     "icons": {
-        "16": "", 
-        "48": "",
-        "128": ""
+        "16": "images/RB.png", 
+        "48": "images/RB.png",
+        "128": "images/RB.png"
     }, 
-    "page_action": {
-        "default_icon": {
-            "16": "",
-            "48": "",
-            "128": ""
-        },
-        "default-popup": "index.html"
-    }, 
+    "permissions": [
+        "nativeMessaging"
+    ],
+    "host_permissions": ["https://*/*"],
+    "action": {
+        "default_popup": "popup.html"
+    },
     "content_scripts": [{
-        "natches": ["https://www.google.com/*"], 
-        "css": ["style.css"],
-        "html": ["index.html"], 
-        "js": ["script.js"]
+        "matches": ["http://*/*", "https://*/*"], 
+        "js": ["scrape.js"]
     }]
 }
