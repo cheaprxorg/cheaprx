@@ -99,14 +99,12 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
     for(let i = 0; i < 3; i++) {
         let options = ['Form', 'Count', 'Strength'];
         let divOptionGroup = document.createElement('div');
-        let selectInput = document.createElement('select');
-        let formOption = document.createElement('option');
-        formOption.value = "";
-        formOption.setAttribute = 'disabled selected'
-        formOption.innerHTML = options[i];
-        selectInput.style.padding = '5px';
-        selectInput.appendChild(formOption);
-        divOptionGroup.appendChild(selectInput);
+        let formOption = document.createElement('input');
+        formOption.style.borderRadius = '16px';
+        formOption.style.width = '80px';
+        formOption.style.marginRight = '5px';
+        formOption.value = `${options[i]}`;
+        divOptionGroup.appendChild(formOption);
         formRow.appendChild(divOptionGroup);
     }
     form.appendChild(formRow);
