@@ -57,7 +57,7 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
     drugName.style.height = '3em';
     drugName.style.fontSize = '2em';
     drugName.style.marginRight = '20px';
-    drugName.innerHTML = "Drug name here";
+    drugName.innerHTML = rxSaverMedData["prescription"]["prescriptionNames"][0]["DisplayName"];
     mainCard.appendChild(drugName);
     exit(exitCard) ;
     exitCard.innerHTML = "x"
@@ -79,7 +79,15 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
             input.type = 'text';
         } else {
             input.setAttribute = 'readonly';
-            input.value = 'whatever price comes in';
+            if (i == 0) {
+                input.value = 'Cost Plus Price $14.40';
+            }
+            else if (i == 1) {
+                input.value = 'RxSaver Price $2,768.93';
+            }
+            else if (i == 2) {
+                input.value = 'You save with $2,754.53 Cost Plus';
+            }
             input.type = 'text';
             input.style.borderRadius = '16px';
             input.style.paddingTop = '1em'
@@ -95,9 +103,10 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
     let formRow = document.createElement('div');
     formRow.style.display = 'flex';
     formRow.style.justifyContent = 'space-between';
-    formRow.style.marginTop = '1em'
+    formRow.style.marginTop = '1em';
+    //let options = [`Form ${rxSaverMedData["form"]}`, `Count ${rxSaverMedData["form"]}`, `Strength ${rxSaverMedData["strength"]}`];
+    let options = ["Form Tablet", "Count 30", "Strength 100mg"];
     for(let i = 0; i < 3; i++) {
-        let options = ['Form', 'Count', 'Strength'];
         let divOptionGroup = document.createElement('div');
         let formOption = document.createElement('input');
         formOption.style.borderRadius = '16px';

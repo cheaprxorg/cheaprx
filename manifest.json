@@ -1,6 +1,6 @@
 {
     "manifest_version": 3, 
-    "name": "cheap-perscriptions-finder", 
+    "name": "CheapRx", 
     "description": "Find the cheapest perscriptions on the internet",
     "background": {
         "service_worker": "background.js"
