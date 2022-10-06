@@ -11,11 +11,16 @@ function addAnimation(body) {
 }
 
 addAnimation(`
-    @keyframes bounce { 
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-10%); }
-    }
-`);
+      @keyframes move-eye { 
+        0%   { transform: scale(1,1)    translateY(0); }
+        10%  { transform: scale(1.1,.9) translateY(0); }
+        30%  { transform: scale(.9,1.1) translateY(-20px); }
+        50%  { transform: scale(1,1)    translateY(0); }
+        57%  { transform: scale(1,1)    translateY(-7px); }
+        64%  { transform: scale(1,1)    translateY(0); }
+        100% { transform: scale(1,1)    translateY(0); }
+      }
+    `);
 
 const insertHTML = (costPlusMedData, rxSaverMedData) => {
     // part 1
@@ -24,12 +29,10 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
     let logo = document.createElement('img'); 
     img(logo);
     logo.addEventListener("mouseover", () => {
-        logo.style.animation = 'bounce 0.3s';
-        logo.style.animationDirection = 'alternative';
-        logo.style.animationIterationCount = 'infinite';
-        logo.style.transition = 'ease-in-out';
+        console.log("in")
         logo.style.cursor = 'pointer';
-    })
+        logo.style.animation = '2s ease 0s 1 both move-eye';
+    });
     icon(i);
     i.style.marginLeft = '1em';
     i.appendChild(logo);
@@ -44,10 +47,7 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
     exitCard.addEventListener("click", () => {
         mainCard.style.display = 'none';
     })
-    logo.addEventListener("mouseover", () => {
-         logo.style.animation = '0.3s ease-in-out  infinite alternate bounce';
 
-    })
     logo.addEventListener("click", () => {
         mainCard.style.display = 'block';
     })
@@ -69,28 +69,30 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
     for (let i = 0; i < 3; i++) {
         let divFormGroup = document.createElement('div');
         let input = document.createElement('input');
-        if(i == 3){
-            input.value = 'total amount';
+        if(i == 2){
+            input.style.backgroundColor = '#4767F2';
+            input.value = 'total amount: $xxx';
             input.style.borderRadius = '16px';
             input.style.paddingTop = '1em'
             input.style.paddingBottom = '1em';
-            input.style.background = '#4767F2 !important';
+            input.style.backgroundColor = '#4767F2 !important';
             input.style.color = "#FFFFFF"
             input.type = 'text';
+            
         } else {
             input.setAttribute = 'readonly';
             if (i == 0) {
-                input.value = 'Cost Plus Price $14.40';
+                input.value = 'Cost Plus: $14.40';
             }
             else if (i == 1) {
-                input.value = 'RxSaver Price $2,768.93';
+                input.value = 'RxSaver: $2,768.93';
             }
             else if (i == 2) {
-                input.value = 'You save with $2,754.53 Cost Plus';
+                input.value = 'You save: $2,754.53';
             }
-            input.type = 'text';
             input.style.borderRadius = '16px';
-            input.style.paddingTop = '1em'
+            input.style.paddingTop = '1em';
+            input.style.paddingLeft = '1em';
             input.style.paddingBottom = '1em';
             input.style.backgroundColor = '#FFFFFF';
         }
@@ -104,23 +106,22 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
     formRow.style.display = 'flex';
     formRow.style.justifyContent = 'space-between';
     formRow.style.marginTop = '1em'
-    //let options = [`Form ${rxSaverMedData["form"]}`, `Count ${rxSaverMedData["form"]}`, `Strength ${rxSaverMedData["strength"]}`];
-    let options = ["Form Tablet", "Count 30", "Strength 100mg"];
+    // let options = [`Form ${rxSaverMedData["form"]}`, `Count ${rxSaverMedData["form"]}`, `Strength ${rxSaverMedData["strength"]}`];
+    let options = ["Tablets", "Count", "Strength"];
     for(let i = 0; i < 3; i++) {
         let divOptionGroup = document.createElement('div');
         let formOption = document.createElement('input');
         formOption.style.borderRadius = '16px';
         formOption.style.width = '80px';
+        formOption.style.fontSize = '0.8em';
+        formOption.style.padding = '1em';
         formOption.style.marginRight = '5px';
-        formOption.value = `${options[i]}`;
+        formOption.placeholder = `${options[i]}`;
         divOptionGroup.appendChild(formOption);
         formRow.appendChild(divOptionGroup); 
     }
     form.appendChild(formRow);
     // part 5
-    let credits =  document.createElement('div');
-    credits.innerHtml = "Powered by ...";
-    form.appendChild(credits);
     mainCard.appendChild(form);
     body.appendChild(mainCard);
 
@@ -132,15 +133,15 @@ const icon = (element) => {
     element.style.zIndex = 99;
     element.style.top = '8em';
     element.style.right = 0;
-    element.style.width = '100px';
-    element.style.height = '100px';
+    element.style.width = '70px';
+    element.style.height = '72px';
     element.style.background = '#4767F2';
     element.style.borderTopLeftRadius  = '60px';
     element.style.borderBottomLeftRadius = '60px';
 }
 const img = (element) => {
     element.src = chrome.runtime.getURL('logo.png');
-    element.id = 'logo';
+    element.id = 'rectangle';
     element.style.marginTop = '9%';
     element.style.marginLeft = '10%'; 
     element.style.width =  '80%'; 
@@ -150,7 +151,7 @@ const main = (element) => {
     element.style.display = 'block';  // temp change
     element.style.position = 'fixed';
     element.id = 'main-card';
-    element.style.top = '20em'; 
+    element.style.top = '17em'; 
     element.style.right ='2em';
     element.style.backgroundColor = '#F8F8FD';
     element.style.padding = '1em';
@@ -184,7 +185,6 @@ const getPropsData = (htmlString) => {
 // Cost Plus Med Data
 const costPlusPropsData = getPropsData(document.documentElement.outerHTML);
 const costPlusMedData = costPlusPropsData["props"]["pageProps"]["medicationDetails"];
-
 let medName = (costPlusMedData["brandName"]).toLowerCase();
 
 let rxSaverQuery = {
