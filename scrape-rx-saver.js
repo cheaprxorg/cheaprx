@@ -1,27 +1,3 @@
-let dynamicStyles = null;
-
-function addAnimation(body) {
-  if (!dynamicStyles) {
-    dynamicStyles = document.createElement('style');
-    dynamicStyles.type = 'text/css';
-    document.head.appendChild(dynamicStyles);
-  }
-
-  dynamicStyles.sheet.insertRule(body, dynamicStyles.length);
-}
-
-addAnimation(`
-      @keyframes move-eye { 
-        0%   { transform: scale(1,1)    translateY(0); }
-        10%  { transform: scale(1.1,.9) translateY(0); }
-        30%  { transform: scale(.9,1.1) translateY(-20px); }
-        50%  { transform: scale(1,1)    translateY(0); }
-        57%  { transform: scale(1,1)    translateY(-7px); }
-        64%  { transform: scale(1,1)    translateY(0); }
-        100% { transform: scale(1,1)    translateY(0); }
-      }
-    `);
-
 const insertHTML = (costPlusMedData, rxSaverMedData) => {
     // part 1
     let body = document.createElement('div');
