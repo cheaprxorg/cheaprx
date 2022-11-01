@@ -1,3 +1,5 @@
+// convert this to react 
+
 const insertHTML = (costPlusMedData, rxSaverMedData) => {
     // part 1
     let body = document.createElement('div');
@@ -7,7 +9,6 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
     logo.addEventListener("mouseover", () => {
         console.log("in")
         logo.style.cursor = 'pointer';
-        logo.style.animation = '2s ease 0s 1 both move-eye';
     });
     icon(i);
     i.style.marginLeft = '1em';
