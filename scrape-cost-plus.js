@@ -24,10 +24,6 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
     let logo = document.createElement('img'); 
     img(logo);
     logo.addEventListener("mouseover", () => {
-        logo.style.animation = 'bounce 0.3s';
-        logo.style.animationDirection = 'alternative';
-        logo.style.animationIterationCount = 'infinite';
-        logo.style.transition = 'ease-in-out';
         logo.style.cursor = 'pointer';
     })
     icon(i);
@@ -45,7 +41,7 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
         mainCard.style.display = 'none';
     })
     logo.addEventListener("mouseover", () => {
-         logo.style.animation = '0.3s ease-in-out  infinite alternate bounce';
+         logo.style.cursor = 'pointer';
 
     })
     logo.addEventListener("click", () => {
