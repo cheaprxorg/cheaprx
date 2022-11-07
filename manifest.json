@@ -7,16 +7,16 @@
     },
     "version": "1.0",
     "icons": {
-        "16": "logo.png", 
-        "48": "logo.png",
-        "128": "logo.png"
+        "16": "/images/logo-tp.png", 
+        "48": "/images/logo-tp.png",
+        "128": "/images/logo-tp.png"
     }, 
     "permissions": [
         "nativeMessaging"
     ],
     "host_permissions": ["https://costplusdrugs.com/medications/*", "https://www.rxsaver.com/drugs/*"],
     "web_accessible_resources": [{
-        "resources": ["logo.png"],
+        "resources": ["/images/logo-tp.png"],
         "matches": ["https://*/*"]
     }],
     "content_scripts": [{

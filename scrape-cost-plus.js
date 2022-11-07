@@ -1,3 +1,11 @@
+/* 
+        Outline: 
+    1. Icon & Animation
+    2. Form 
+    3. Web Scrapping
+
+*/ 
+
 let dynamicStyles = null;
 
 function addAnimation(body) {
@@ -10,15 +18,17 @@ function addAnimation(body) {
   dynamicStyles.sheet.insertRule(body, dynamicStyles.length);
 }
 
-addAnimation(`
+addAnimation(
+    `
     @keyframes bounce { 
         0% { transform: translateY(0); }
         100% { transform: translateY(-10%); }
     }
-`);
+    `
+);
 
 const insertHTML = (costPlusMedData, rxSaverMedData) => {
-    // part 1
+   
     let body = document.createElement('div');
     let i = document.createElement('div');
     let logo = document.createElement('img'); 
@@ -30,7 +40,7 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
     i.style.marginLeft = '1em';
     i.appendChild(logo);
     body.appendChild(i);
-    // part 2
+
     let mainCard = document.createElement('div');
     let drugName = document.createElement('h1');
     let exitCard = document.createElement('i');
@@ -60,7 +70,6 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
     mainCard.appendChild(drugName);
     mainCard.appendChild(exitCard);
 
-    // part 3
     let form = document.createElement('form');
     for (let i = 0; i < 3; i++) {
         let divFormGroup = document.createElement('div');
@@ -95,7 +104,7 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
         divFormGroup.appendChild(input);
         form.appendChild(divFormGroup);
     }
-    // part 4
+
     let formRow = document.createElement('div');
     formRow.style.display = 'flex';
     formRow.style.justifyContent = 'space-between';
@@ -113,7 +122,7 @@ const insertHTML = (costPlusMedData, rxSaverMedData) => {
         formRow.appendChild(divOptionGroup);
     }
     form.appendChild(formRow);
-    // part 5
+  
     let credits =  document.createElement('div');
     credits.innerHtml = "Powered by ...";
     form.appendChild(credits);
@@ -135,7 +144,7 @@ const icon = (element) => {
     element.style.borderBottomLeftRadius = '60px';
 }
 const img = (element) => {
-    element.src = chrome.runtime.getURL('logo.png');
+    element.src = chrome.runtime.getURL('/images/logo-tp.png');
     element.id = 'logo';
     element.style.marginTop = '9%';
     element.style.marginLeft = '10%'; 

@@ -1,4 +1,10 @@
-// convert this to react 
+/* 
+        Outline: 
+    1. Icon & Animation
+    2. Form 
+    3. Web Scrapping
+    
+*/ 
 
 const insertHTML = (costPlusMedData, rxSaverMedData) => {
     // part 1
@@ -117,7 +123,7 @@ const icon = (element) => {
     element.style.borderBottomLeftRadius = '60px';
 }
 const img = (element) => {
-    element.src = chrome.runtime.getURL('logo.png');
+    element.src = chrome.runtime.getURL('/images/logo-tp.png');
     element.id = 'rectangle';
     element.style.marginTop = '9%';
     element.style.marginLeft = '10%'; 
