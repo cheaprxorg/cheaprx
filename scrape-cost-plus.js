@@ -6,27 +6,6 @@
 
 */ 
 
-let dynamicStyles = null;
-
-function addAnimation(body) {
-  if (!dynamicStyles) {
-    dynamicStyles = document.createElement('style');
-    dynamicStyles.type = 'text/css';
-    document.head.appendChild(dynamicStyles);
-  }
-
-  dynamicStyles.sheet.insertRule(body, dynamicStyles.length);
-}
-
-addAnimation(
-    `
-    @keyframes bounce { 
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-10%); }
-    }
-    `
-);
-
 const insertHTML = (costPlusMedData, rxSaverMedData) => {
    
     let body = document.createElement('div');
