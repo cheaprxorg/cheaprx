@@ -6,7 +6,7 @@
 
 */ 
 
-const insertHTML = (costPlusMedData, rxSaverMedData) => {
+const insertHTML = (costPlusMedData = null, rxSaverMedData = null) => {
    
     let body = document.createElement('div');
     let i = document.createElement('div');
@@ -187,8 +187,8 @@ let costPlusQuery = {
     baseUrl: "https://costplusdrugs.com/medications",
     drugName: medName,
     drugStrength: medStrength,
-    drugForm: medForm
-    //url: "https://www.rxsaver.com/drugs/imatinib-mesylate/coupons"
+    drugForm: medForm,
+    url: "https://www.rxsaver.com/drugs/imatinib-mesylate/coupons"
 };
 
 chrome.runtime.sendMessage(costPlusQuery, (response) => {

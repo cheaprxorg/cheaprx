@@ -8,11 +8,14 @@
     "version": "1.0",
     "icons": {
         "16": "/images/logo-tp.png", 
+        "32": "/images/logo-tp.png", 
         "48": "/images/logo-tp.png",
         "128": "/images/logo-tp.png"
     }, 
     "permissions": [
-        "nativeMessaging"
+        "nativeMessaging",
+        "notifications",
+        "storage"
     ],
     "host_permissions": ["https://costplusdrugs.com/medications/*", "https://www.rxsaver.com/drugs/*"],
     "web_accessible_resources": [{
@@ -21,9 +24,14 @@
     }],
     "content_scripts": [{
         "matches": ["https://www.rxsaver.com/drugs/*"], 
-        "js": ["scrape-cost-plus.js"]
+        "js": ["/scripts/scrape-cost-plus.js"]
     }, {
         "matches": ["https://costplusdrugs.com/medications/*"], 
-        "js": ["scrape-rx-saver.js"]
-    }]
+        "js": ["/scripts/scrape-rx-saver.js"]
+    }],
+    "action": {
+        "default_popup": "home.html",
+        "default_title": "Tap now for even more deals!"
+  }
 }
+
