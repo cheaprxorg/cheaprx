@@ -1,12 +1,7 @@
-/* 
-        Outline: 
-    1. Icon & Animation
-    2. Form 
-    3. Web Scrapping
+// import { icon, img, main, exit } from "../design-functions";
 
-*/ 
 
-const insertHTML = (costPlusMedData = null, rxSaverMedData = null) => {
+const insertHTML = (costPlusMedData, rxSaverMedData) => {
    
     let body = document.createElement('div');
     let i = document.createElement('div');
@@ -14,7 +9,7 @@ const insertHTML = (costPlusMedData = null, rxSaverMedData = null) => {
     img(logo);
     logo.addEventListener("mouseover", () => {
         logo.style.cursor = 'pointer';
-    })
+    });
     icon(i);
     i.style.marginLeft = '1em';
     i.appendChild(logo);
@@ -42,7 +37,7 @@ const insertHTML = (costPlusMedData = null, rxSaverMedData = null) => {
     drugName.style.height = '3em';
     drugName.style.fontSize = '2em';
     drugName.style.marginRight = '20px';
-    drugName.innerHTML = rxSaverMedData["prescription"]["prescriptionNames"][0]["DisplayName"];
+    drugName.innerHTML = costPlusMedData["brandName"];
     mainCard.appendChild(drugName);
     exit(exitCard) ;
     exitCard.innerHTML = "x"
@@ -53,28 +48,30 @@ const insertHTML = (costPlusMedData = null, rxSaverMedData = null) => {
     for (let i = 0; i < 3; i++) {
         let divFormGroup = document.createElement('div');
         let input = document.createElement('input');
-        if(i == 3){
-            input.value = 'total amount';
+        if(i == 2){
+            input.style.backgroundColor = '#4767F2';
+            input.value = 'total amount: $xxx';
             input.style.borderRadius = '16px';
             input.style.paddingTop = '1em'
             input.style.paddingBottom = '1em';
-            input.style.background = '#4767F2 !important';
+            input.style.backgroundColor = '#4767F2 !important';
             input.style.color = "#FFFFFF"
             input.type = 'text';
+            
         } else {
             input.setAttribute = 'readonly';
             if (i == 0) {
-                input.value = 'Cost Plus Price $14.40';
+                input.value = 'Price: $14.40';
             }
             else if (i == 1) {
-                input.value = 'RxSaver Price $2,768.93';
+                input.value = 'RxSaver: $2,768.93';
             }
             else if (i == 2) {
-                input.value = 'You save with $2,754.53 Cost Plus';
+                input.value = 'You save: $2,754.53';
             }
-            input.type = 'text';
             input.style.borderRadius = '16px';
-            input.style.paddingTop = '1em'
+            input.style.paddingTop = '1em';
+            input.style.paddingLeft = '1em';
             input.style.paddingBottom = '1em';
             input.style.backgroundColor = '#FFFFFF';
         }
@@ -89,42 +86,39 @@ const insertHTML = (costPlusMedData = null, rxSaverMedData = null) => {
     formRow.style.justifyContent = 'space-between';
     formRow.style.marginTop = '1em';
     //let options = [`Form ${rxSaverMedData["form"]}`, `Count ${rxSaverMedData["form"]}`, `Strength ${rxSaverMedData["strength"]}`];
-    let options = ["Form Tablet", "Count 30", "Strength 100mg"];
+    let options = ["Tablets", "Count", "Strength"];
     for(let i = 0; i < 3; i++) {
         let divOptionGroup = document.createElement('div');
         let formOption = document.createElement('input');
         formOption.style.borderRadius = '16px';
         formOption.style.width = '80px';
+        formOption.style.fontSize = '0.8em';
+        formOption.style.padding = '1em';
         formOption.style.marginRight = '5px';
-        formOption.value = `${options[i]}`;
+        formOption.placeholder = `${options[i]}`;
         divOptionGroup.appendChild(formOption);
         formRow.appendChild(divOptionGroup);
     }
     form.appendChild(formRow);
-  
-    let credits =  document.createElement('div');
-    credits.innerHtml = "Powered by ...";
-    form.appendChild(credits);
     mainCard.appendChild(form);
     body.appendChild(mainCard);
 
     document.body.appendChild(body);
 };
-
 const icon = (element) => {
     element.style.position = 'fixed';
     element.style.zIndex = 99;
     element.style.top = '8em';
     element.style.right = 0;
-    element.style.width = '100px';
-    element.style.height = '100px';
+    element.style.width = '70px';
+    element.style.height = '72px';
     element.style.background = '#4767F2';
     element.style.borderTopLeftRadius  = '60px';
     element.style.borderBottomLeftRadius = '60px';
 }
 const img = (element) => {
     element.src = chrome.runtime.getURL('/images/logo-tp.png');
-    element.id = 'logo';
+    element.id = 'rectangle';
     element.style.marginTop = '9%';
     element.style.marginLeft = '10%'; 
     element.style.width =  '80%'; 
@@ -134,7 +128,7 @@ const main = (element) => {
     element.style.display = 'block';  // temp change
     element.style.position = 'fixed';
     element.id = 'main-card';
-    element.style.top = '20em'; 
+    element.style.top = '17em'; 
     element.style.right ='2em';
     element.style.backgroundColor = '#F8F8FD';
     element.style.padding = '1em';
@@ -165,36 +159,22 @@ const getPropsData = (htmlString) => {
 };
 
 
-// Scrape RX Saver Med Data
-const rxSaverPropsData = getPropsData(document.documentElement.outerHTML);
-const rxSaverMedData = rxSaverPropsData["props"]["initialState"];
-let medName = (rxSaverMedData["drugEducationInfo"]["brandName"]).toLowerCase();
+// Cost Plus Med Data
+const costPlusPropsData = getPropsData(document.documentElement.outerHTML);
+const costPlusMedData = costPlusPropsData["props"]["pageProps"]["medicationDetails"];
+let medName = (costPlusMedData["brandName"]).toLowerCase();
 
-const medTypes = rxSaverMedData["prescription"]["prescriptionNames"];
-let medForm;
-for (const medType of medTypes) {
-    if ((medType["Name"].toLowerCase()).includes(medName)) {
-        medForm = (medType["Forms"][0]["Form"]).toLowerCase();
-        break;
-    }
-}
-
-let medStrength = (rxSaverMedData["drugEducationInfo"]["dosage"]).toLowerCase();
-medStrength = medStrength.replace(/\s/g, '');
-
-let costPlusQuery = {
-    company: "Cost Plus Drugs",
-    baseUrl: "https://costplusdrugs.com/medications",
+let rxSaverQuery = {
+    company: "RxSaver",
+    baseUrl: "https://www.rxsaver.com/drugs",
     drugName: medName,
-    drugStrength: medStrength,
-    drugForm: medForm,
-    url: "https://www.rxsaver.com/drugs/imatinib-mesylate/coupons"
+    //url: "https://www.rxsaver.com/drugs/imatinib-mesylate/coupons"
 };
 
-chrome.runtime.sendMessage(costPlusQuery, (response) => {
-    // Cost Plus Scraping
-    const costPlusPropsData = getPropsData(response);
-    const costPlusMedData = costPlusPropsData["props"]["pageProps"]["medicationDetails"];
+chrome.runtime.sendMessage(rxSaverQuery, (response) => {
+    // RxSaver Scraping
+    const rxSaverPropsData = getPropsData(response);
+    const rxSaverMedData = rxSaverPropsData["props"]["initialState"];
 
     insertHTML(costPlusMedData, rxSaverMedData);
 });

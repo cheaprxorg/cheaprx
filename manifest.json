@@ -24,13 +24,13 @@
     }],
     "content_scripts": [{
         "matches": ["https://www.rxsaver.com/drugs/*"], 
-        "js": ["/scripts/scrape-cost-plus.js"]
+        "js": ["/seeds/scrape-cost-plus.js"]
     }, {
         "matches": ["https://costplusdrugs.com/medications/*"], 
-        "js": ["/scripts/scrape-rx-saver.js"]
+        "js": ["/seeds/scrape-rx-saver.js"]
     }],
     "action": {
-        "default_popup": "home.html",
+        "default_popup": "/views/tab.html",
         "default_title": "CheapRx"
   }
 }
