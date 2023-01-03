@@ -31,7 +31,7 @@
     }],
     "action": {
         "default_popup": "home.html",
-        "default_title": "Tap now for even more deals!"
+        "default_title": "CheapRx"
   }
 }
 
