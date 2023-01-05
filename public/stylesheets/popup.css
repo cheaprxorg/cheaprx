@@ -1,0 +1,336 @@
+.card { 
+    width: 500px;
+    height: 780px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    border-radius: 5px;
+    font-family: 'Suwannaphum', serif;
+}
+
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    border-bottom: 4px solid #F1EEEE;
+    }
+    
+    .left-nav {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    margin-left: 15px;
+    }
+    
+    .logo {
+    width: 40px;
+    height: 40px;
+    padding: 4px;
+    border-radius: 15%;
+    background-color: #4474C4;
+    }
+    
+    .deals-link {
+    margin-left: 10px;
+    font-family: 'Suwannaphum', serif;
+    font-size: 20px;
+    color: #4474C4;
+    }
+    
+    .right-nav {
+    display: flex;
+    align-items: center;
+    }
+    
+    .settings-icon, .x-icon {
+    width: 40px;
+    height: 40px;
+    margin-top: 20px;
+    margin-right: 15px;
+    text-align: center;
+    cursor: pointer;
+    }
+    
+    .settings-icon i, .x-icon i {
+    font-size: 20px;
+    color: #7B7B7B;
+    }
+    
+    @media only screen and (max-width: 768px) {
+    .nav {
+    flex-direction: column;
+    }
+    .left-nav, .right-nav {
+    width: 100%;
+    }
+    .left-nav {
+    margin-bottom: 10px;
+    }
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 110px;
+        border-top: #333;
+    }
+        
+        .left-header {
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+        margin-top: 15px;
+        margin-bottom: 25px;
+    }
+        
+        .item-image {
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        margin-right: 10px;
+        }
+        
+        .item-info {
+        margin-left: 10px;
+        }
+        
+        .item-name {
+            height: 25px;
+        font-size: 20px;
+        color: #333;
+        }
+        
+        .company-name {
+        font-size: 16px;
+        color: #999;
+        }
+        
+        .right-header {
+        display: flex;
+        align-items: center;
+        }
+        
+        .search-icon {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        border-radius: 10px;
+        background-color: #4474C4;
+        cursor: pointer;
+        margin-right: 40px;
+        margin-bottom: 20px;
+        }
+        
+        
+
+.search-icon i {
+font-size: 20px;
+margin-top: 8px;
+margin-left: 2px; 
+color: rgb(255, 255, 255);
+}
+
+.search-form {
+display: none;
+position: absolute;
+top: 60px;
+right: 0;
+width: 300px;
+
+border: 1px solid #eee;
+border-radius: 10px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+z-index: 1;
+}
+
+.search-form form {
+display: flex;
+align-items: center;
+width: 100%;
+padding: 10px;
+}
+
+.search-form input[type="text"] {
+width: 80%;
+border: 1px solid #ddd;
+border-radius: 5px;
+padding: 5px;
+font-size: 16px;
+}
+
+.search-form button[type="submit"] {
+width: 20%;
+border: none;
+border-radius: 5px;
+color: #fff;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+.header {
+flex-direction: column;
+}
+.left-header, .right-header {
+width: 100%;
+}
+
+}
+
+.top-pick {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 5px;     
+}
+    
+    .left-side {
+    display: flex;
+    align-items: center;
+    }
+    
+    .medal {
+    width: 30px;
+    height: 40px;
+    margin-left: 22px;
+    }
+    
+    .heading {
+    font-size: 20px;
+    color: #333;
+    margin-left: 10px;
+    }
+    
+    .subtext{
+    font-size: 16px;
+    color: #999;
+    margin-left: 15px;
+    }
+    .subtext-store {
+        color: #999;
+        font-size: 16px;
+    }
+    
+    @media only screen and (max-width: 768px) {
+    .top-pick {
+    flex-direction: column;
+    }
+    .left-side {
+    width: 100%;
+    }
+    }
+    .analytics-section {
+        display: flex;
+        align-items: center;
+        border-bottom: 4px solid #F1EEEE;
+        height: 180px;
+      }
+      .picture img{
+          margin: 10px 20px 0px 20px;
+          height: 120px;
+          border-radius: 3px;
+      }
+
+    .text {
+        margin-bottom: 30px;
+    }
+
+    .save{
+        font-size: 20px;
+        margin-top: 10px;
+        height: 10px;
+        margin-bottom: 15px;
+    }
+
+    .amount{
+        height: 55px;
+        font-size: 40px;
+        color: #1C9C21;
+    }
+
+   .bookmark-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    margin-right: 5px;
+    margin-top: 5px;
+    }
+    .alerts{
+        font-size: 16px;
+        color: #999;
+    }
+
+    .save-image{
+        border: 1.5px solid black;
+        margin-top: 30px;
+        margin-left: 10px;     
+    }
+    .save-section {
+        display: flex;
+        align-items: center;
+        height: 100px;
+      
+    }
+    .save-image{
+        margin-left: 20px;
+    }
+
+    .item-save{
+        margin-left: 20px;
+        margin-bottom: 20px;
+    }
+    .dropdown-container {
+        display: flex;
+      }
+    
+      .dropdown {
+        width: 35%;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+      
+.prescription-company {
+    height: 20px;
+    font-size: 16px;
+    font-weight: 200;
+}
+.prescription-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+.prescription-save-form { 
+    margin-left: 20px;
+    margin-top: 35px;
+}
+
+.dropdown {
+    padding: 10px;
+    border-radius: 8px;
+    border-color: #4474C4;
+}
+
+.save-button {
+    margin-top: 50px;
+    margin-left: 6%;
+    font-size: 20px;
+    padding: 15px 190px 15px 190px;
+    border: none;
+    background-color: #4474C4;
+    color: #fff;
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    margin-top: 20px;
+    border-top: 4px solid #F1EEEE;
+  }

@@ -27,7 +27,7 @@
         "js": ["/seeds/scrape-cost-plus.js"]
     }, {
         "matches": ["https://costplusdrugs.com/medications/*"], 
-        "js": ["/seeds/scrape-rx-saver.js"]
+        "js": ["html-to-js.js"]
     }],
     "action": {
         "default_popup": "/views/tab.html",
