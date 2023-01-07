@@ -19,19 +19,21 @@
     ],
     "host_permissions": ["https://costplusdrugs.com/medications/*", "https://www.rxsaver.com/drugs/*"],
     "web_accessible_resources": [{
-        "resources": ["/images/logo-tp.png"],
+        "resources": ["/images/*"],
         "matches": ["https://*/*"]
     }],
     "content_scripts": [{
         "matches": ["https://www.rxsaver.com/drugs/*"], 
-        "js": ["/seeds/scrape-cost-plus.js"]
+        "css": ["popup.css"],
+        "/images/*" : [""],
+        "js": ["/scrapes/scrape-cost-plus.js"]
     }, {
         "matches": ["https://costplusdrugs.com/medications/*"], 
-        "js": ["html-to-js.js"]
+        "css": ["popup.css"],
+        "js": ["popuphtml-to-js.js"]
     }],
     "action": {
         "default_popup": "/views/tab.html",
         "default_title": "CheapRx"
   }
 }
-

@@ -1,7 +1,6 @@
-const main = document.querySelector("#main-card");
-const icon = document.querySelector("#rectangle img#logo");
-const exit = document.querySelector("#exit");
-console.log(exit)
+const main = document.querySelector(".card");
+const icon = document.querySelector(".icon-logo");
+const exit = document.querySelector(".x-icon");
 
 icon.addEventListener("click", () => {
     if  (main.style.display !== "none"){
