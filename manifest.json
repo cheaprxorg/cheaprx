@@ -25,7 +25,6 @@
     "content_scripts": [{
         "matches": ["https://www.rxsaver.com/drugs/*"], 
         "css": ["popup.css"],
-        "/images/*" : [""],
         "js": ["/scrapes/scrape-cost-plus.js"]
     }, {
         "matches": ["https://costplusdrugs.com/medications/*"], 

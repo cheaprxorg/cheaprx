@@ -4,6 +4,8 @@
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     border-radius: 5px;
     font-family: 'Suwannaphum', serif;
+    position: relative;
+    float: right;
     z-index: 99;
 }
 

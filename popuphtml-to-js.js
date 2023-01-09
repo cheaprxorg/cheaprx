@@ -39,6 +39,27 @@ const exit = (element) => {
     element.style.top = '6%';
 }
 
+    let fontawesome = document.createElement('link');
+    fontawesome.rel = 'stylesheet';
+    fontawesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
+    document.head.appendChild(fontawesome);
+
+    let googleAPIS = document.createElement('link');
+    googleAPIS.rel = 'preconnect';
+    googleAPIS.href = 'https://fonts.googleapis.com';
+    document.head.appendChild(googleAPIS);
+
+    let gStatic = document.createElement('link');
+    gStatic.rel = 'preconnect';
+    gStatic.href = 'https://fonts.gstatic.com';
+    gStatic.crossOrigin = true;
+    document.head.appendChild(gStatic);
+
+    let fontsAPIS = document.createElement('link');
+    fontsAPIS.rel = 'stylesheet';
+    fontsAPIS.href = 'https://fonts.googleapis.com/css2?family=Suwannaphum&display=swap';
+    document.head.appendChild(fontsAPIS);
+
     let i = document.createElement('div');
     let logot = document.createElement('img'); 
     img(logot);
@@ -60,7 +81,7 @@ const exit = (element) => {
     leftNav.className = "left-nav";
 
     let logo = document.createElement('img');
-    logo.src = "../images/logo-tp.png";
+    logo.src = chrome.runtime.getURL('/images/logo-tp.png');
     logo.alt = "logo";
     logo.className = "logo";
     let dealsLink = document.createElement('div');
@@ -94,7 +115,7 @@ const exit = (element) => {
     let leftHeader = document.createElement('div');
     leftHeader.className = "left-header";
     let drugImage = document.createElement('img');
-    drugImage.src = "../images/drug-temp-logo.png";
+    drugImage.src = chrome.runtime.getURL('/images/drug-temp-logo.png');
     drugImage.alt = "item";
     drugImage.className = "item-image";
     leftHeader.appendChild(drugImage);
@@ -141,7 +162,7 @@ const exit = (element) => {
     let leftSide = document.createElement('div');
     leftSide.className = "left-side";
     let medalImage = document.createElement('img');
-    medalImage.src = "../images/medal.png";
+    medalImage.src = chrome.runtime.getURL('/images/medal.png');
     medalImage.alt = "medal";
     medalImage.className = "medal";
     leftSide.appendChild(medalImage)
@@ -161,7 +182,7 @@ const exit = (element) => {
     let picture = document.createElement('div');
     picture.className = "picture";
     let chartImage = document.createElement('img');
-    chartImage.src = "../images/chart.png"
+    chartImage.src = chrome.runtime.getURL('/images/chart.png');
     chartImage.alt = "chart";
     picture.appendChild(chartImage);
     analyticsSection.appendChild(picture);
@@ -185,7 +206,7 @@ const exit = (element) => {
     let lowerMidSection = document.createElement('div');
     lowerMidSection.className = "left-header";
     let bookmarkImage = document.createElement('img');
-    bookmarkImage.src = "../images/bookmark.png";
+    bookmarkImage.src = chrome.runtime.getURL('/images/bookmark.png');
     bookmarkImage.alt = "item";
     bookmarkImage.className = "bookmark-image";
     lowerMidSection.appendChild(bookmarkImage);
@@ -204,7 +225,7 @@ const exit = (element) => {
     let saveSection = document.createElement('div');
     saveSection.className = "save-section";
     let drugLogo = document.createElement('img');
-    drugLogo.src = "../images/drug-temp-logo.png";
+    drugLogo.src = chrome.runtime.getURL('/images/drug-temp-logo.png');
     drugLogo.alt = "item";
     drugLogo.className = "save-image";
     saveSection.appendChild(drugLogo);
@@ -241,10 +262,10 @@ const exit = (element) => {
     footer.className = "footer";
     footer.innerText = "Sourced by CheapRx";
     card.appendChild(footer);
-
-    console.log(card)
+   
     document.body.appendChild(card);
 }
+
 insertHTML()
 
 // let styleSheet = document.createElement("style");

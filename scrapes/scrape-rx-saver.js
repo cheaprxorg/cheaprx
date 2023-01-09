@@ -1,8 +1,4 @@
-// import { icon, img, main, exit } from "../design-functions";
-
-
-const insertHTML = (costPlusMedData, rxSaverMedData) => {
-   
+const insertHTML = (costPlusMedData, rxSaverMedData) => {   
     let body = document.createElement('div');
     let i = document.createElement('div');
     let logo = document.createElement('img'); 
