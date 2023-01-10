@@ -1,14 +1,12 @@
-.card { 
-    width: 500px;
-    height: 780px;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-    border-radius: 5px;
-    font-family: 'Suwannaphum', serif;
-    position: relative;
-    float: right;
+.card {
+    background-color: #fff; 
+    position: fixed;
     z-index: 99;
+    top: 15em;
+    right: 15px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    
 }
-
 
 .nav {
     display: flex;
@@ -295,6 +293,9 @@ width: 100%;
         width: 35%;
         margin-right: 10px;
         cursor: pointer;
+        padding: 6px;
+        border-radius: 8px;
+        border-color: #4474C4;
       }
       
 .prescription-company {
@@ -305,24 +306,18 @@ width: 100%;
 .prescription-name {
     font-size: 20px;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 .prescription-save-form { 
     margin-left: 20px;
     margin-top: 35px;
 }
 
-.dropdown {
-    padding: 10px;
-    border-radius: 8px;
-    border-color: #4474C4;
-}
-
-.save-button {
-    margin-top: 50px;
-    margin-left: 6%;
-    font-size: 20px;
-    padding: 15px 190px 15px 190px;
-    border: none;
+button.save-button {
+    margin: 50px 17px 0px 17px;
+    font-size: 15px;
+    padding: 15px 192px 15px 190px;
+    width: 1px;
     background-color: #4474C4;
     color: #fff;
     border-radius: 9px;
